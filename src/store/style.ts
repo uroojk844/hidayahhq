@@ -3,6 +3,13 @@ import { reactive, ref, watch } from "vue";
 export const titleRef = ref<HTMLElement>();
 export const arRef = ref<HTMLElement>();
 export const enRef = ref<HTMLElement>();
+export const containerRef = ref<HTMLElement>();
+
+export const container = reactive({
+  gap: 48,
+  color: "#ffffff",
+  bg: "#666666",
+});
 
 export const title = reactive({
   size: 12,
@@ -75,3 +82,12 @@ watch(enText, () => {
   enRef.value.style.textAlign = enText.textAligment;
   enRef.value.style.placeSelf = enText.selfAligment;
 });
+
+
+watch(container, ()=> {
+  if (!containerRef.value) return;
+
+  containerRef.value.style.gap = container.gap+'px';
+  containerRef.value.style.color = container.color;
+  containerRef.value.style.backgroundColor = container.bg;
+})

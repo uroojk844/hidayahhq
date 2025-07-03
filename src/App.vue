@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import html2canvas from 'html2canvas';
-import { ref} from 'vue';
+import { ref } from 'vue';
 import { saveAs } from "file-saver";
 import SideBar from './components/SideBar.vue';
-import { titleRef, arRef, enRef } from './store/style';
+import { titleRef, arRef, enRef, containerRef } from './store/style';
+import { Icon } from "@iconify/vue"
 
 const ar = ref('');
 
@@ -13,7 +14,9 @@ const title = ref(`Qur'an - `);
 
 const preview = ref('');
 
-function wrapArabicNumbers(event:Event) {
+const sidebarOpen = ref(false);
+
+function wrapArabicNumbers(event: Event) {
   ar.value = (event.target as HTMLInputElement).value.replace(/[\u0660-\u0669]+/g, (digit) => `<span class='v'>${digit}</span>`);
 }
 
@@ -36,14 +39,15 @@ function getImage() {
 </script>
 
 <template>
-  <SideBar />
+  <SideBar v-model="sidebarOpen" />
   <main>
     <nav>
+      <Icon @click="sidebarOpen = true" icon="uil:bars" class=" hide-lg"/>
       <div class="title">Create Post</div>
     </nav>
     <section class="editor">
       <div class="post-container">
-        <div class="container" id="container">
+        <div class="container" id="container" ref="containerRef">
           <div>
             <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="220" height="45" baseProfile="tiny"
               overflow="inherit" viewBox="0 0 176 36">
@@ -57,7 +61,7 @@ function getImage() {
             </svg>
           </div>
 
-          <img :src="preview" onerror="this.alt = 'wrong url'" alt="">
+          <img :src="preview" alt="">
           <p class="ar" id="ar" v-html="ar" ref="arRef"></p>
           <p id="en" ref="enRef">{{ en }}</p>
           <div class="heading" ref="titleRef">{{ title }}</div>
@@ -75,7 +79,7 @@ function getImage() {
             <label for="ar">Arabic text</label>
             <textarea id="ar" type="text" rows="10" name="ar" @input="wrapArabicNumbers"></textarea>
           </div>
-          
+
           <div class="group">
             <label for="en">English text</label>
             <textarea id="en" type="text" rows="10" v-model.trim="en" required></textarea>
@@ -83,7 +87,7 @@ function getImage() {
 
           <div class="group">
             <label>Select image</label>
-            <input type="file" accept="image/*" @change="createURL"  />
+            <input type="file" accept="image/*" @change="createURL" />
           </div>
 
           <button>Generate</button>

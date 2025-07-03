@@ -1,10 +1,16 @@
 <script setup lang="ts">
-import { arText, enText, title } from '../store/style';
+import { Icon } from '@iconify/vue';
+import { arText, container, enText, title } from '../store/style';
+
+const isOpen = defineModel<Boolean>({ default: false });
 </script>
 
 <template>
-    <aside>
-        <div class="title">HidayahHQ</div>
+    <aside :class="{ open: isOpen }">
+        <div class="title">
+            <span>HidayahHQ</span>
+            <Icon icon="uil:times" class="hide-lg" @click="isOpen = false" />
+        </div>
         <details open>
             <summary class="heading">Title</summary>
             <form>
@@ -116,18 +122,67 @@ import { arText, enText, title } from '../store/style';
                 </div>
             </form>
         </details>
+        <details>
+            <summary class="heading">Post</summary>
+            <form>
+                <div class="group">
+                    <label for="">Gap <span>{{ container.gap }}</span></label>
+                    <input type="range" min="1" max="100" v-model="container.gap" />
+                </div>
+                <div class="dflex">
+                    <label for="">Color</label>
+                    <input type="color" v-model="container.color" />
+                </div>
+                <div class="dflex">
+                    <label for="">Background color</label>
+                    <input type="color" v-model="container.bg" />
+                </div>
+            </form>
+        </details>
     </aside>
 </template>
 
 <style scoped lang="css">
-
-aside{
+aside {
     display: grid;
     align-content: start;
     gap: 16px;
     overflow-y: auto;
     max-height: 100vh;
+    background-color: var(--surface);
+    min-width: 280px;
+    border-right: 1px solid var(--border);
+    padding: 16px;
+
+    .title {
+        margin-bottom: 16px;
+        font-weight: bold;
+        font-size: 1.3em;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        svg {
+            font-size: 28px;
+        }
+    }
 }
+
+@media screen and (width<1200px) {
+    aside {
+        position: absolute;
+        height: 100%;
+        z-index: 99;
+        transition: 150ms ease-in-out;
+        transform: translateX(-100%);
+
+    }
+
+    aside.open {
+        transform: translate(0);
+    }
+}
+
 form {
     padding: 16px;
 }
