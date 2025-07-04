@@ -61,7 +61,7 @@ function getImage() {
             </svg>
           </div>
 
-          <img :src="preview" alt="">
+          <img v-if="preview" :src="preview" alt="">
           <p class="ar" id="ar" v-html="ar" ref="arRef"></p>
           <p id="en" ref="enRef">{{ en }}</p>
           <div class="heading" ref="titleRef">{{ title }}</div>

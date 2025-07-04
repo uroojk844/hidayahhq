@@ -9,7 +9,7 @@ export const container = reactive({
   gap: 48,
   color: "#ffffff",
   bg: "#000000",
-  alpha: 64,
+  alpha: 102,
 });
 
 export const title = reactive({

@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Mirza:wght@400;500;600;700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 @font-face {
     font-family: arabic;
     src: url("./assets/indopak-nastaleeq-waqf-lazim-v4.2.1.woff2");
@@ -7,11 +8,6 @@
 @font-face {
     font-family: verse;
     src: url("./assets/UthmanicHafs1Ver18.woff2");
-}
-
-@font-face {
-    font-family: waqf;
-    src: url("./assets/indopak-nastaleeq-waqf-lazim-v4.2.1.woff2");
 }
 
 *{
@@ -79,8 +75,7 @@ main{
 }
 
 .container {
-    --brigthness:0.4;
-    --lg: rgba(0,0,0, var(--brigthness)), rgba(0,0,0,var(--brigthness));
+    --bg: #00000066;
     overflow: hidden;
     position: relative;
     padding: 48px;
@@ -91,7 +86,7 @@ main{
     align-content: center;
     gap: 48px;
     text-align: center;
-    background: linear-gradient(var(--lg));
+    background: var(--bg);
         
     img {
         position: absolute;
@@ -100,7 +95,7 @@ main{
         width: 100%;
         height: 100%;
         object-fit: cover;
-        object-position: center; 
+        object-position: center;
     }
 }
 
@@ -116,11 +111,12 @@ p{
 
     &.ar{
         text-wrap: pretty;
+        
         text-rendering: geometricPrecision;
         direction: rtl;
         font-size: 2em;
         font-weight: 400;
-        font-family: serif;
+        font-family: arabic !important;
     }
 }
 
