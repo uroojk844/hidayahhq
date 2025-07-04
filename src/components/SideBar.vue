@@ -137,6 +137,10 @@ const isOpen = defineModel<Boolean>({ default: false });
                     <label for="">Background color</label>
                     <input type="color" v-model="container.bg" />
                 </div>
+                <div class="group">
+                    <label for="">Transparency <span>{{ container.alpha }}</span></label>
+                    <input type="range" min="0" max="255" v-model="container.alpha" />
+                </div>
             </form>
         </details>
     </aside>

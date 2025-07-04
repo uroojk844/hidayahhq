@@ -1,4 +1,4 @@
-import { reactive, ref, watch } from "vue";
+import { computed, reactive, ref, watch } from "vue";
 
 export const titleRef = ref<HTMLElement>();
 export const arRef = ref<HTMLElement>();
@@ -8,7 +8,8 @@ export const containerRef = ref<HTMLElement>();
 export const container = reactive({
   gap: 48,
   color: "#ffffff",
-  bg: "#666666",
+  bg: "#000000",
+  alpha: 64,
 });
 
 export const title = reactive({
@@ -16,8 +17,8 @@ export const title = reactive({
   color: "#ffffff",
   bg: "",
   width: 0,
-  textAligment: 'center',
-  selfAligment: 'center',
+  textAligment: "center",
+  selfAligment: "center",
 });
 
 export const arText = reactive({
@@ -25,8 +26,8 @@ export const arText = reactive({
   color: "#ffffff",
   bg: "",
   width: 0,
-  textAligment: 'center',
-  selfAligment: 'center',
+  textAligment: "center",
+  selfAligment: "center",
 });
 
 export const enText = reactive({
@@ -34,8 +35,8 @@ export const enText = reactive({
   color: "#ffffff",
   bg: "",
   width: 0,
-  textAligment: 'center',
-  selfAligment: 'center',
+  textAligment: "center",
+  selfAligment: "center",
 });
 
 window.onload = () => {
@@ -81,13 +82,20 @@ watch(enText, () => {
   enRef.value.style.width = enText.width + "px";
   enRef.value.style.textAlign = enText.textAligment;
   enRef.value.style.placeSelf = enText.selfAligment;
+  4;
 });
 
+const alphaHex = computed(() => {
+  const hex = Number(container.alpha).toString(16);
+  return hex.padStart(2, '0');
+});
 
-watch(container, ()=> {
+watch(container, () => {
   if (!containerRef.value) return;
 
-  containerRef.value.style.gap = container.gap+'px';
+  let bg = container.bg + alphaHex.value;
+  containerRef.value.style.gap = container.gap + "px";
   containerRef.value.style.color = container.color;
-  containerRef.value.style.backgroundColor = container.bg;
-})
+
+  containerRef.value.style.background = `linear-gradient(${bg},${bg})`;
+});

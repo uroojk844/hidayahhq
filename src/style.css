@@ -80,6 +80,7 @@ main{
 
 .container {
     --brigthness:0.4;
+    --lg: rgba(0,0,0, var(--brigthness)), rgba(0,0,0,var(--brigthness));
     overflow: hidden;
     position: relative;
     padding: 48px;
@@ -90,7 +91,7 @@ main{
     align-content: center;
     gap: 48px;
     text-align: center;
-    background-color: #666666;
+    background: linear-gradient(var(--lg));
         
     img {
         position: absolute;
